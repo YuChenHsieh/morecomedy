@@ -1,0 +1,60 @@
+scalar Time
+
+enum EventCategory{
+  standup
+  manzai
+  impromptu 
+}
+
+type Event {
+  id: ID!
+  name: String!
+  briefly: String!
+  category: EventCategory!
+  host: Host
+  shows : [Show]!
+}
+
+type Show {
+  id: ID!
+  Time: Time!
+  location: String!
+  price: [Int!]
+  link: String!
+  actors: [Actor]
+}
+
+type Host {
+  id: ID!
+  name: String!
+  location: String!
+}
+
+type Actor {
+  id: ID!
+  name: String!
+}
+
+input NewEvent {
+  name: String!
+  cover: String!
+  thumbnail: String!
+  briefly: String!
+  category: EventCategory!
+  show: [NewShow]
+}
+
+input NewShow {
+  date: Time!
+  location: String!
+  price: [Int]
+}
+
+type Mutation {
+  createEvent(input: NewEvent!): Event!
+  createShow(input: NewShow!): Show!
+}
+
+type Query {
+  events: [Event]!
+}
