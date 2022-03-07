@@ -2,11 +2,14 @@ import Card from 'components/common/Card'
 import Box from '@mui/material/Box'
 import style from './style'
 import { useQuery } from '@apollo/client';
-import { GET_EVENTS } from 'pages/graphql'
+import graphql from '../../../graphql'
 
 const Events = (props) => {
-    const { loading, error, data } = useQuery(GET_EVENTS)
-    console.log('data', data)
+    const { loading, error, data } = useQuery(graphql.GET_EVENTS)
+    if (loading) return (<Box></Box>)
+    const events = data.events || []
+    const eventsNum = events.length
+
     const shows = [
         {
             cover: '/logo.png',
@@ -37,23 +40,21 @@ const Events = (props) => {
             description: '「周末夜喜劇秀」Saturday Night Live Comedy\n大家一起來笑嗨嗨！'
         }
     ]
-
+    const iteration = Array.from({ length: Math.ceil(eventsNum / 3) }, (v, i) => i)
     return (
         <>
-            <Box sx={style.row}>
-                {shows.slice(0, 3).map((show, index) => (
-                    <Box key={`show_${index}`} sx={style.col}>
-                        <Card src={show.cover} name={show.name} description={show.description} />
+            {iteration.map(i => (
+                <>
+                    <Box key={`event_row_${i}`} sx={style.row}>
+                        {events.slice(i, i + 3).map((event) => (
+                            <Box key={`event_${event.id}`} sx={style.col}>
+                                <Card src={`/events/${event.id}.jpeg`} name={event.name} description={event.briefly} />
+                            </Box>
+                        ))}
                     </Box>
-                ))}
-            </Box>
-            <Box sx={style.row}>
-                {shows.slice(3, 6).map((show, index) => (
-                    <Box key={`show_${index + 3}`} sx={style.col}>
-                        <Card src={show.cover} name={show.name} description={show.description} />
-                    </Box>
-                ))}
-            </Box>
+                </>
+            ))
+            }
         </>
     )
 }

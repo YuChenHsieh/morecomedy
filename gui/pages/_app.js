@@ -2,11 +2,11 @@ import '../styles/globals.css'
 import {
   ApolloProvider,
 } from "@apollo/client";
-import { client } from './graphql'
+import graphql from '../graphql'
 
 function MyApp ({ Component, pageProps }) {
   return (
-    <ApolloProvider client={client}>
+    <ApolloProvider client={graphql.client}>
       <Component {...pageProps} />
     </ApolloProvider>
   )

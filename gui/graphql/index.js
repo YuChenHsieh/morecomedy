@@ -7,4 +7,4 @@ const client = new ApolloClient({
     cache: new InMemoryCache()
 });
 
-module.exports = { client, GET_EVENTS }
+export default { client, GET_EVENTS }

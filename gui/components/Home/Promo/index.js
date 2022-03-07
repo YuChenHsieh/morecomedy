@@ -15,18 +15,18 @@ import "swiper/css/navigation"
 
 const Event = (props) => {
     return (
-        <Box sx={style.event}>
+        <Box key={`promo_${props.key}`} sx={style.event} >
             <img src={props.src} alt="" style={style.image} />
-        </Box>
+        </Box >
     )
 }
 
 const Promo = (props) => {
 
     var Events = [
-        <Event src='/comedybase.jpeg' />,
-        <Event src='/burn.png' />,
-        <Event src='/oldk.jpeg' />,
+        <Event key='1' src='/comedybase.jpeg' />,
+        <Event key='2' src='/burn.png' />,
+        <Event key='3' src='/oldk.jpeg' />,
     ]
 
     return (
@@ -36,7 +36,7 @@ const Promo = (props) => {
             navigation={true}
             style={style.carousel}
         >
-            {Events.map(e => (<SwiperSlide>
+            {Events.map((e, i) => (<SwiperSlide key={`slide_${i}`}>
                 {e}
             </SwiperSlide>)
             )}

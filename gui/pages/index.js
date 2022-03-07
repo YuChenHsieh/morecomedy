@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import Header from '../components/Home/Header'
-import Promo from '../components/Home/Promo'
-import Events from '../components/Home/Events'
+import Header from 'components/Home/Header'
+import Promo from 'components/Home/Promo'
+import Events from 'components/Home/Events'
 import Box from '@mui/material/Box'
 
 export default function Home () {
